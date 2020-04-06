@@ -33,7 +33,6 @@ class Search
     public function __construct($key, $request)
     {
         $this->key = 'search.'.$key;
-        $this->redirection = $redirection;
         $this->defineRedirections();
         $this->defineAttributes($request);
         if(empty($this->attributes))

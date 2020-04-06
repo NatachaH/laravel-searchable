@@ -4,6 +4,8 @@ namespace Nh\Searchable\Middleware;
 
 use Closure;
 
+use Route;
+
 class RedirectIfSearch
 {
     /**
