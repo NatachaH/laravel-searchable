@@ -111,7 +111,7 @@ class Search
     {
         session()->forget($this->key);
 
-        if(!is_null($this->redirection))
+        if(!is_null($this->redirections))
         {
           return redirect()->route($this->redirections['reset'])->send();
         }
