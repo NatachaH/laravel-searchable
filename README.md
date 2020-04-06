@@ -26,7 +26,7 @@ use Nh\Searchable\Search
 $search = Search::new('keyname', $request->input('search'));
 
 // Get an attribute in Search Class
-$keyword = $search->get('text');
+$keyword = $search->attribute('text');
 
 // For overide the redirections
 $search->addRedirection('key','routeName');

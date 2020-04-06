@@ -46,7 +46,7 @@ class Search
      * @param  string $key
      * @return string
      */
-    public function get($key)
+    public function attribute($key)
     {
         return !empty($this->attributes) && array_key_exists($key,$this->attributes) ? $this->attributes[$key] : null;
     }
