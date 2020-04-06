@@ -2,6 +2,7 @@
 
 namespace Nh\Searchable;
 
+use Route;
 
 class Search
 {
@@ -28,7 +29,7 @@ class Search
     /**
      * Create a new search instance.
      *
-     * @return void
+     * @return Nh\Searchable\Search
      */
     public function new($key, $request)
     {
@@ -39,6 +40,7 @@ class Search
         {
             $this->destroy();
         }
+        return $this;
     }
 
     /**
