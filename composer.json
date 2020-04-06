@@ -1,0 +1,24 @@
+{
+    "name": "nh/searchable",
+    "description": "Make a model searchable and keep Search in session",
+    "license": "MIT",
+    "type": "library",
+    "require": {},
+    "author": {
+        "name": "Natacha Herth",
+        "email": "info@natachaherth.ch"
+    },
+    "autoload": {
+        "psr-4": {
+            "Nh\\Searchable\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Nh\\Searchable\\SearchableServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev"
+}
