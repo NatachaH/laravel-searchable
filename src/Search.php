@@ -30,7 +30,7 @@ class Search
      *
      * @return void
      */
-    public function __construct($key, $request)
+    public function new($key, $request)
     {
         $this->key = 'search.'.$key;
         $this->defineRedirections();

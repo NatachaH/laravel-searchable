@@ -23,7 +23,7 @@ Add This line to save the search as session:
 use Nh\Searchable\Search
 
 // Make a Search Class
-$search = new Search('keyname', $request->input('search'));
+$search = Search::new('keyname', $request->input('search'));
 
 // Get an attribute in Search Class
 $keyword = $search->get('text');
