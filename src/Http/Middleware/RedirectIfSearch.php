@@ -1,4 +1,4 @@
- <?php
+<?php
 
 namespace Nh\Searchable\Middleware;
 
