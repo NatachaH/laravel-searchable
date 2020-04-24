@@ -32,9 +32,10 @@ Finnaly, add a **search()** method:
 ```
 /**
  * Display a listing of the searched resource.
+ * @param lluminate\Http\Request $request
  * @return \Illuminate\Http\Response
  */
-public function search()
+public function search(Request $request)
 {
     // Make a Search Class
     $search = new Search('key', $request->input('search'));
