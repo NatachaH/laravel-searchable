@@ -30,10 +30,14 @@ public function __construct()
 Finnaly, add a **search()** method:
 
 ```
+/**
+ * Display a listing of the searched resource.
+ * @return \Illuminate\Http\Response
+ */
 public function search()
 {
     // Make a Search Class
-    $search = Search::new('key', $request->input('search'));
+    $search = new Search('key', $request->input('search'));
 
     // For override the redirections
     $search->addRedirection('key','routeName');
@@ -42,7 +46,9 @@ public function search()
     $keywords = $search->attribute('text');
 
     // Make the search query
-    $posts = Post::search($keywords,'contains',true)->get();
+    // The search can be 'contains', 'start' or 'end'
+    // And you can decide if all columns match
+    $posts = Post::search($keywords,'contains',false)->get();
 
     // Display the result
     return view('my.search.view', compact('posts'));
@@ -68,6 +74,6 @@ And you can set the columns where to make the search:
  * @var array
  */
 protected $searchable = [
-  'title'
+  'title', 'subtitle', 'description'
 ];
 ```

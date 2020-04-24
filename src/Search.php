@@ -30,7 +30,7 @@ class Search
      *
      * @return Nh\Searchable\Search
      */
-    public function new($key, $request)
+    public function __construct($key, $request)
     {
         $this->key = 'search.'.$key;
         $this->defineRedirections();
