@@ -9,7 +9,7 @@ composer require nh/searchable
 In your controller add the Facade accessor:
 
 ```
-use Nh\Searchable\Search
+use Nh\Searchable\Search;
 ```
 
 Next, add the middleware **search** in the **__construct()** method:
