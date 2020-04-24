@@ -1,9 +1,19 @@
 # Installation
 
+```
+composer require nh/searchable
+```
 
 # Controller
 
-Add this line to automatic redirect if a search session exist:
+In your controller add the Facade accessor:
+
+```
+use Nh\Searchable\Search
+```
+
+Next, add the middleware **search** in the **__construct()** method:
+**The search middleware will automatically redirect if there is a search session**
 
 ```
 /**
@@ -13,21 +23,51 @@ Add this line to automatic redirect if a search session exist:
  */
 public function __construct()
 {
-    $this->middleware('search:keyname')->only('index');
+    $this->middleware('search:key')->only('index');
 }
 ```
 
-Add This line to save the search as session:
+Finnaly, add a **search()** method:
 
 ```
-use Nh\Searchable\Search
+public function search()
+{
+    // Make a Search Class
+    $search = Search::new('key', $request->input('search'));
 
-// Make a Search Class
-$search = Search::new('keyname', $request->input('search'));
+    // For override the redirections
+    $search->addRedirection('key','routeName');
 
-// Get an attribute in Search Class
-$keyword = $search->attribute('text');
+    // Get an attribute in Search Class
+    $keywords = $search->attribute('text');
 
-// For overide the redirections
-$search->addRedirection('key','routeName');
+    // Make the search query
+    $posts = Post::search($keywords,'contains',true)->get();
+
+    // Display the result
+    return view('my.search.view', compact('posts'));
+}
+```
+
+# Model
+
+Add the **Searchable** trait to your model:
+
+```
+use Nh\Searchable\Traits\Searchable;
+
+use Searchable;
+```
+
+And you can set the columns where to make the search:
+
+```
+/**
+ * The searchable columns.
+ *
+ * @var array
+ */
+protected $searchable = [
+  'title'
+];
 ```

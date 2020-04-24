@@ -6,7 +6,6 @@ use Route;
 
 class Search
 {
-
     /**
      * Key name of the Search.
      * By default search.key
@@ -106,6 +105,7 @@ class Search
 
     /**
      * Remove the session and redirect if needed.
+     * @return void
      */
     protected function destroy()
     {
