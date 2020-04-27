@@ -32,5 +32,8 @@ class SearchableServiceProvider extends ServiceProvider
         // MIDDLEWARES
         $router->aliasMiddleware('search', \Nh\Searchable\Middleware\RedirectIfSearch::class);
 
+        // ROUTES
+        $this->loadRoutesFrom(__DIR__ . '/../routes/searchable.php');
+
     }
 }

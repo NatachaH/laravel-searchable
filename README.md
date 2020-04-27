@@ -78,3 +78,11 @@ protected $searchable = [
   'title', 'subtitle', 'description'
 ];
 ```
+
+# Routes
+
+You can reset a Search Session by going on the route **searchable.reset**:
+
+```
+route('searchable.reset', ['key' => 'key'])
+```
