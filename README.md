@@ -56,6 +56,13 @@ public function search(Request $request)
 }
 ```
 
+The Search class will create a session with:
+- the key
+- the redirections (by default: 'reset' => 'myroute/index' and 'search' => 'myroute/search')
+- the attributes
+
+The **$request->input('search')** must be an array of field, like search['text'].
+
 # Model
 
 Add the **Searchable** trait to your model:
@@ -85,4 +92,12 @@ You can reset a Search Session by going on the route **searchable.reset**:
 
 ```
 route('searchable.reset', ['key' => 'key'])
+```
+
+# Views
+
+You can get a Search attribute by:
+
+```
+{{ session('key')->attribute('text')}}
 ```
