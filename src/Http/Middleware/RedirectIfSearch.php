@@ -23,7 +23,7 @@ class RedirectIfSearch
         if(session()->exists($key))
         {
             $session = session($key);
-            $redirection = $session->redirections['search'];
+            $redirection = $session->redirection('search');
             if(Route::has($redirection))
             {
                 return redirect()->route($redirection);

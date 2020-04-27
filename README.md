@@ -40,15 +40,10 @@ public function search(Request $request)
     // Make a Search Class
     $search = new Search('key', $request->input('search'));
 
-    // For override the redirections
-    $search->addRedirection('key','routeName');
-
     // Get an attribute in Search Class
     $keywords = $search->attribute('text');
 
     // Make the search query
-    // The search can be 'contains', 'start' or 'end'
-    // And you can decide if all columns match
     $posts = Post::search($keywords,'contains',false)->get();
 
     // Display the result
@@ -62,6 +57,24 @@ The Search class will create a session with:
 - the attributes
 
 The **$request->input('search')** must be an array of field, like search['text'].
+
+You can override the redirections with:
+
+```
+$search->addRedirection('key','routeName');
+```
+
+You can access to a Search redirection by:
+
+```
+session('search.key')->redirection('reset');
+```
+
+You can access to a Search attribute by:
+
+```
+session('search.key')->attribute('text');
+```
 
 # Model
 
@@ -86,18 +99,18 @@ protected $searchable = [
 ];
 ```
 
+Then you can make a search query as:
+*The search can be 'contains', 'start' or 'end'*
+*And you can decide if all columns match by setting true/false*
+
+```
+Post::search('my keyword','contains',false)->get();
+```
+
 # Routes
 
 You can reset a Search Session by going on the route **searchable.reset**:
 
 ```
 route('searchable.reset', ['key' => 'key'])
-```
-
-# Views
-
-You can get a Search attribute by:
-
-```
-{{ session('search.key')->attribute('text')}}
 ```

@@ -53,6 +53,16 @@ class Search
     }
 
     /**
+     * Get a redirection value by key.
+     * @param  string $key
+     * @return string
+     */
+    public function redirection($key)
+    {
+        return !empty($this->redirections) && array_key_exists($key,$this->redirections) ? $this->redirections[$key] : null;
+    }
+
+    /**
      * Define the attributes by request if != of the current session.
      * And set the new session
      * @param  array $request
@@ -80,8 +90,6 @@ class Search
 
     /**
      * Define the default redirections route name.
-     * And set the new session
-     * @param  array $routes
      * @return void
      */
     protected function defineRedirections()
@@ -93,8 +101,8 @@ class Search
 
     /**
      * For overide the redirections route name.
-     * And set the new session
-     * @param  array $routes
+     * @param  string $key
+     * @param  string $route
      * @return void
      */
     public function addRedirection($key,$route)
@@ -113,7 +121,7 @@ class Search
 
         if(!is_null($this->redirections))
         {
-          return redirect()->route($this->redirections['reset'])->send();
+          return redirect()->route($this->redirection('reset'))->send();
         }
     }
 

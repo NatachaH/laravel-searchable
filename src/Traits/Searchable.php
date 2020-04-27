@@ -11,7 +11,7 @@ trait Searchable
    * @param  Builder $query
    * @param  string  $keyword   Keyword to search
    * @param  string  $operator  Operatar to use for search
-   * @param  boolean  $allMatch  Keyword to search
+   * @param  boolean  $allMatch  Is keyword in all columns
    * @return Builder
    */
   public function scopeSearch(Builder $query, $keyword, $operator = 'contains', $allMatch = false)
