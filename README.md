@@ -57,7 +57,7 @@ public function search(Request $request)
 ```
 
 The Search class will create a session with:
-- the key
+- the key (should be your model ex: posts)
 - the redirections (by default: 'reset' => 'myroute/index' and 'search' => 'myroute/search')
 - the attributes
 
@@ -99,5 +99,5 @@ route('searchable.reset', ['key' => 'key'])
 You can get a Search attribute by:
 
 ```
-{{ session('key')->attribute('text')}}
+{{ session('search.key')->attribute('text')}}
 ```

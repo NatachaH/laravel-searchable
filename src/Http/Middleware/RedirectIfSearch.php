@@ -19,6 +19,7 @@ class RedirectIfSearch
      */
     public function handle($request, Closure $next, $key)
     {
+        $key = 'search.'.$key;
         if(session()->exists($key))
         {
             $session = session($key);
