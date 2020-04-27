@@ -107,7 +107,7 @@ class Search
      * Remove the session and redirect if needed.
      * @return void
      */
-    protected function destroy()
+    public function destroy()
     {
         session()->forget($this->key);
 
