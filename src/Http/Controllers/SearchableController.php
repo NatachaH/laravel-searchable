@@ -1,6 +1,6 @@
 <?php
 
-namespace Nh\Http\Controllers;
+namespace Nh\Searchable\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
