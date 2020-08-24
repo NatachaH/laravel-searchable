@@ -1,6 +1,6 @@
 <?php
 
-namespace Nh\Searchable\Middleware;
+namespace Nh\Searchable\Http\Middleware;
 
 use Closure;
 
