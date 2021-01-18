@@ -63,13 +63,13 @@ trait Searchable
   {
       if($from > 0 && $to > 0)
       {
-        return static::whereBetween($column, [$from,$to]);
+        return $query->whereBetween($column, [$from,$to]);
       } else if($from > 0) {
-        return static::where($column, '>=', $from);
+        return $query->where($column, '>=', $from);
       } else if($to > 0) {
-        return static::where($column, '<=', $to);
+        return $query->where($column, '<=', $to);
       } else {
-        return static::whereNull($column)->orWhere($column,0);
+        return $query->whereNull($column)->orWhere($column,0);
       }
   }
 
