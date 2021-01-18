@@ -107,6 +107,16 @@ Then you can make a search query as:
 Post::search('my keyword','contains',false)->get();
 ```
 
+You can also search between 2 values:
+*Default values are 0 to 99999999999999999999*
+
+```
+Post::searchBetween('mycolumn',10,100)->get();    // Retrieve where between 10 and 100
+Post::searchBetween('mycolumn',null,100)->get();  // Retrieve where under or equal 100
+Post::searchBetween('mycolumn',100,null)->get();  // Retrieve where greater or equal than 100
+Post::searchBetween('mycolumn',0,0)->get();       // Retrieve where is 0 or null
+```
+
 # Routes
 
 You can reset a Search Session by going on the route **searchable.reset**:
