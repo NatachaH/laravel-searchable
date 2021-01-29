@@ -16,7 +16,10 @@ class SearchableController extends Controller
     {
         $key = 'search.'.$key;
         $session = session($key);
-        $session->destroy();
+        if(!empty($session))
+        {
+          $session->destroy();
+        }
         return;
     }
 }
