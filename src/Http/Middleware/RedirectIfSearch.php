@@ -27,6 +27,8 @@ class RedirectIfSearch
             if(Route::has($redirection))
             {
                 return redirect()->route($redirection);
+            } else {
+                return redirect($redirection);
             }
         }
 

@@ -58,10 +58,13 @@ The Search class will create a session with:
 
 The **$request->input('search')** must be an array of field, like search['text'].
 
-You can override the redirections with:
+You can override the redirections with an array:
 
 ```
-$search->addRedirection('key','routeName');
+$search = new Search('key', $request->input('search'), [
+  'reset' => 'custom.redirection',
+  'search' => 'custom.redirection'
+]);
 ```
 
 You can access to a Search redirection by:

@@ -30,15 +30,17 @@ class Search
      *
      * @return Nh\Searchable\Search
      */
-    public function __construct($key, $request)
+    public function __construct($key, $request, $redirections)
     {
         $this->key = 'search.'.$key;
-        $this->defineRedirections();
+        $this->defineRedirections($redirections);
         $this->defineAttributes($request);
+
         if(empty($this->attributes))
         {
             $this->destroy();
         }
+
         return $this;
     }
 
@@ -70,21 +72,25 @@ class Search
      */
     protected function defineAttributes($request)
     {
+        // Get method
+        $method = request()->getMethod();
+
         // Clean the Request array of empty values.
         $request = is_null($request) ? null : array_filter($request);
 
         // Get the current Session if exist.
         $sessionAttributes = session()->exists($this->key) ? session($this->key)->attributes : null;
 
-        // If the Request is not null and is different from the current session
-        if(!is_null($request) && $request !== $sessionAttributes)
-        {
+        // Define the attribute
+        switch ($method) {
+          case 'POST':
             $this->attributes = $request;
             session()->put($this->key, $this);
-        }
-        else
-        {
+            break;
+
+          default:
             $this->attributes = $sessionAttributes;
+            break;
         }
     }
 
@@ -92,23 +98,11 @@ class Search
      * Define the default redirections route name.
      * @return void
      */
-    protected function defineRedirections()
+    protected function defineRedirections(array $redirections = [])
     {
         $current = Route::currentRouteName();
-        $this->redirections['reset'] = str_replace('search','index',$current);
-        $this->redirections['search'] = $current;
-    }
-
-    /**
-     * For overide the redirections route name.
-     * @param  string $key
-     * @param  string $route
-     * @return void
-     */
-    public function addRedirection($key,$route)
-    {
-        $this->redirections[$key] = $route;
-        session()->push($this->key.'.redirections', $this->redirections);
+        $this->redirections['reset'] = array_key_exists('reset',$redirections) ? $redirections['reset'] : str_replace('search','index',$current);
+        $this->redirections['search'] = array_key_exists('search',$redirections) ? $redirections['search']: $current;
     }
 
     /**
@@ -119,9 +113,16 @@ class Search
     {
         session()->forget($this->key);
 
-        if(!is_null($this->redirections))
+        $redirection = $this->redirection('reset') ?? null;
+
+        if($redirection)
         {
-          return redirect()->route($this->redirection('reset'))->send();
+            if(Route::has($redirection))
+            {
+                return redirect()->route($redirection)->send();
+            } else {
+                return redirect($redirection)->send();
+            }
         }
     }
 
