@@ -2,6 +2,7 @@
 namespace Nh\Searchable\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 
 trait Searchable
 {
@@ -39,12 +40,34 @@ trait Searchable
 
           foreach($columns as $column)
           {
-              if($allMatch)
+
+              if(Str::contains($column, '.'))
               {
-                  $query->where($column,'LIKE', $valueToSearch);
+                  $explode = explode('.',$column);
+                  $model   = $explode[0];
+                  $col     = $explode[1];
+
+                  if($allMatch)
+                  {
+                      $query->whereHas($model, function($q) use ($col,$valueToSearch){
+                          $q->where($col,'LIKE', $valueToSearch);
+                      });
+                  } else {
+                      $query->orWhereHas($model, function($q) use ($col,$valueToSearch){
+                          $q->where($col,'LIKE', $valueToSearch);
+                      });
+                  }
+
               } else {
-                  $query->orWhere($column,'LIKE', $valueToSearch);
+                if($allMatch)
+                {
+                    $query->where($column,'LIKE', $valueToSearch);
+                } else {
+                    $query->orWhere($column,'LIKE', $valueToSearch);
+                }
               }
+
+
           }
 
       });

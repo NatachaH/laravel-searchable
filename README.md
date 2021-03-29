@@ -90,6 +90,7 @@ use Searchable;
 ```
 
 And you can set the columns where to make the search:
+*You can set some relationship column too as 'relation.column'*
 
 ```
 /**
@@ -98,7 +99,7 @@ And you can set the columns where to make the search:
  * @var array
  */
 protected $searchable = [
-  'title', 'subtitle', 'description'
+  'title', 'subtitle', 'description', 'author.firstname'
 ];
 ```
 
