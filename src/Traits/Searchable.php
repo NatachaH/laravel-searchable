@@ -15,7 +15,7 @@ trait Searchable
    * @param  boolean  $allMatch  Is keyword in all columns
    * @return Builder
    */
-  public function scopeSearch(Builder $query, $keyword, $operator = 'contains', $allMatch = false)
+  public function scopeSearch(Builder $myquery, $keyword, $operator = 'contains', $allMatch = false)
   {
       // Get columns where to search
       $columns = $this->searchable;
@@ -36,7 +36,7 @@ trait Searchable
       }
 
       // Make the search query
-      return static::where(function ($query) use ($columns, $valueToSearch, $allMatch) {
+      return $myquery->where(function ($query) use ($columns, $valueToSearch, $allMatch) {
 
           foreach($columns as $column)
           {
@@ -66,8 +66,6 @@ trait Searchable
                     $query->orWhere($column,'LIKE', $valueToSearch);
                 }
               }
-
-
           }
 
       });
@@ -77,9 +75,9 @@ trait Searchable
   /**
    * Search between in column
    * @param  Builder $query
-   * @param  string  $column   Column where to search to search
+   * @param  string  $column   Column where to search
    * @param  float   $from     Search from X value
-   * @param  float   $from     Search to X value
+   * @param  float   $to       Search to X value
    * @return Builder
    */
   public function scopeSearchBetween(Builder $query,$column, $from = 0, $to = 99999999999999999999)
@@ -95,6 +93,8 @@ trait Searchable
         return $query->whereNull($column)->orWhere($column,0);
       }
   }
+
+  
 
 
 }
